@@ -1,0 +1,449 @@
+{
+  "info": {
+    "name": "Student Scores API",
+    "description": "Run requests 1 to 9 in order on a freshly started server (data is kept in memory). Login uses the collection variables username and password.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{username}}",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "{{password}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "username",
+      "value": "teacher"
+    },
+    {
+      "key": "password",
+      "value": "change-this-password"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Home (public)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": []
+        },
+        "description": "No login needed. Expect 200.",
+        "auth": {
+          "type": "noauth"
+        }
+      }
+    },
+    {
+      "name": "2. Create subject",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/subjects",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "subjects"
+          ]
+        },
+        "description": "Expect 201.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Mathematics\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "3. Create assessment (Mid-term, max 50)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/assessments",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "assessments"
+          ]
+        },
+        "description": "Expect 201.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"subject_id\": 1,\n  \"title\": \"Mid-term Test\",\n  \"max_score\": 50\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "4. Create assessment (Final, max 100)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/assessments",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "assessments"
+          ]
+        },
+        "description": "Expect 201.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"subject_id\": 1,\n  \"title\": \"Final Exam\",\n  \"max_score\": 100\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "5. Add score",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/scores",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "scores"
+          ]
+        },
+        "description": "Expect 201.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": \"S001\",\n  \"assessment_id\": 1,\n  \"score\": 40\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "6. Add another score",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/scores",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "scores"
+          ]
+        },
+        "description": "Expect 201.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": \"S001\",\n  \"assessment_id\": 2,\n  \"score\": 90\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "7. Update score",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/scores/1",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "scores",
+            "1"
+          ]
+        },
+        "description": "Expect 200.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"score\": 45\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "8. Get student results",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/S001/results",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "S001",
+            "results"
+          ]
+        },
+        "description": "Expect 200."
+      }
+    },
+    {
+      "name": "9. Get student average",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/S001/average",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "S001",
+            "average"
+          ]
+        },
+        "description": "Expect 200."
+      }
+    },
+    {
+      "name": "List subjects",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/subjects",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "subjects"
+          ]
+        },
+        "description": "Expect 200."
+      }
+    },
+    {
+      "name": "List assessments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/assessments",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "assessments"
+          ]
+        },
+        "description": "Expect 200."
+      }
+    },
+    {
+      "name": "ERROR: score above maximum",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/scores",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "scores"
+          ]
+        },
+        "description": "Expect 422.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": \"S002\",\n  \"assessment_id\": 1,\n  \"score\": 80\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ERROR: duplicate score",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/scores",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "scores"
+          ]
+        },
+        "description": "Expect 409.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"student_id\": \"S001\",\n  \"assessment_id\": 1,\n  \"score\": 30\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ERROR: unknown student",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/S999/results",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "S999",
+            "results"
+          ]
+        },
+        "description": "Expect 404."
+      }
+    },
+    {
+      "name": "ERROR: empty subject name",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/subjects",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "subjects"
+          ]
+        },
+        "description": "Expect 422.",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "ERROR: no login",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/students/S001/results",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "students",
+            "S001",
+            "results"
+          ]
+        },
+        "description": "Expect 401.",
+        "auth": {
+          "type": "noauth"
+        }
+      }
+    }
+  ]
+}
