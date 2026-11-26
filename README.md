@@ -20,7 +20,7 @@ Author: Chinecherem Ude
 
 ## Setup
 ```bash
-git clone https://github.com/YOUR-USERNAME/student-scores-api.git
+git clone https://github.com/alen-7/student-scores-api.git
 cd student-scores-api
 python -m venv .venv
 ```
